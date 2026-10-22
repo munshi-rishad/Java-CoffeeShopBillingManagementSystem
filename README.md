@@ -48,14 +48,14 @@ java -cp out Start
 
 ## Screenshots
 
-1. **Login Page** – Log in with your email and password.
-   ![Login Page](screenshots/updated/login_page.png)
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="screenshots/updated/login_page.png" alt="Login page – log in with email and password"><br><sub>Login page – log in with email and password</sub></td>
+    <td width="50%" align="center"><img src="screenshots/updated/registration_page.png" alt="Registration page – create a new account"><br><sub>Registration page – create a new account</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><img src="screenshots/updated/coffee_order_page.png" alt="Make My Coffee – customize the coffee and see the price"><br><sub>Make My Coffee – customize the coffee and see the price</sub></td>
+    <td width="50%" align="center"><img src="screenshots/updated/payment_page.png" alt="Payment – choose bKash, card or cash and pay"><br><sub>Payment – choose bKash, card or cash and pay</sub></td>
+  </tr>
+</table>
 
-2. **Registration Page** – Create a new account.
-   ![Registration Page](screenshots/updated/registration_page.png)
-
-3. **Coffee Order Page** – Customize your coffee and see the total price.
-   ![Coffee Order Page](screenshots/updated/coffee_order_page.png)
-
-4. **Payment Page** – Choose a payment method and confirm the order.
-   ![Payment Page](screenshots/updated/payment_page.png)
