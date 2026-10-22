@@ -1,0 +1,15 @@
+# Saved accounts and orders (created when the app runs)
+data/
+
+# Compiled classes
+out/
+bin/
+*.class
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath

@@ -1,115 +1,124 @@
-import java.lang.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Login screen.
+ * The user types the email and password that were saved on the Register screen
+ * (accounts are kept in data/users.txt, see DataStore).
+ * If they match, the coffee order screen (FrameIntro) opens.
+ */
 public class Login extends JFrame implements ActionListener {
-    JPanel panel;
-    JLabel emailLabel, passwordLabel;
-    JTextField emailTF;
-    JPasswordField passwordTF;
-    JButton loginBtn, registerBtn;
+
+    // Background image is loaded once, not on every repaint
+    private static final Image BACKGROUND =
+            new ImageIcon("assets/backgrounds/login_background.png").getImage();
+
+    // Colors and fonts used on this screen
+    private static final Color BUTTON_COLOR = new Color(255, 146, 105);
+    private static final Font LABEL_FONT = new Font("Arial", Font.PLAIN, 14);
+    private static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 14);
+
+    private JPanel panel;
+    private JLabel emailLabel, passwordLabel;
+    private JTextField emailTF;
+    private JPasswordField passwordTF;
+    private JButton loginBtn, registerBtn;
 
     public Login() {
         super("Login");
-        this.setBounds(600,200,800,500);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 500);
+        setLocationRelativeTo(null);   // open in the middle of the screen
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Font myFont1 = new Font("Arial", Font.PLAIN, 14);
-        Font myFont2 = new Font("Arial", Font.BOLD, 14);
-
+        // Panel that draws the background picture
         panel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon imageIcon = new ImageIcon("assets/backgrounds/login_background.png");
-                Image img = imageIcon.getImage();
-                g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-                
+                g.drawImage(BACKGROUND, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        panel.setLayout(null);
+        panel.setLayout(null);   // we place every component by x, y position
 
+        // ---- Email ----
         emailLabel = new JLabel("Email:");
         emailLabel.setBounds(230, 150, 100, 30);
         emailLabel.setForeground(Color.BLACK);
-        emailLabel.setFont(myFont1);
+        emailLabel.setFont(LABEL_FONT);
         panel.add(emailLabel);
 
         emailTF = new JTextField();
         emailTF.setBounds(300, 150, 200, 30);
         panel.add(emailTF);
 
+        // ---- Password ----
         passwordLabel = new JLabel("Password:");
         passwordLabel.setBounds(230, 200, 100, 30);
         passwordLabel.setForeground(Color.BLACK);
-        passwordLabel.setFont(myFont1);
+        passwordLabel.setFont(LABEL_FONT);
         panel.add(passwordLabel);
 
         passwordTF = new JPasswordField();
         passwordTF.setBounds(300, 200, 200, 30);
         panel.add(passwordTF);
 
-        loginBtn = new JButton("Login");
-        loginBtn.setBounds(300, 260, 90, 30);
-        loginBtn.setBackground(new Color(255, 146, 105));
-        loginBtn.setForeground(Color.WHITE);
-        loginBtn.setFont(myFont2);
-        loginBtn.addActionListener(this);
+        // ---- Buttons ----
+        loginBtn = createButton("Login", 300, 260, 90);
+        registerBtn = createButton("Register", 400, 260, 100);
         panel.add(loginBtn);
-
-        registerBtn = new JButton("Register");
-        registerBtn.setBounds(400, 260, 100, 30);
-        registerBtn.setBackground(new Color(255, 146, 105));
-        registerBtn.setForeground(Color.WHITE);
-        registerBtn.setFont(myFont2);
-        registerBtn.addActionListener(this);
         panel.add(registerBtn);
 
-        this.add(panel);
-		Exception();
+        add(panel);
+
+        // Pressing Enter in the password box works like clicking Login
+        getRootPane().setDefaultButton(loginBtn);
     }
-	public void Exception() {
-		int a = 1;
-        int b = 0;
 
-       
-        try {
-			int result = b/a ;
-            
-        } catch (ArithmeticException ex) {
-            System.out.println("Error: " + ex.getMessage());
-        }
-	}
-	
+    /** Makes an orange button with white bold text. */
+    private JButton createButton(String text, int x, int y, int width) {
+        JButton button = new JButton(text);
+        button.setBounds(x, y, width, 30);
+        button.setBackground(BUTTON_COLOR);
+        button.setForeground(Color.WHITE);
+        button.setFont(BUTTON_FONT);
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.addActionListener(this);
+        return button;
+    }
+
+    @Override
     public void actionPerformed(ActionEvent ae) {
-            if (ae.getSource() == loginBtn) {
-                String email = emailTF.getText();
-                String password = new String(passwordTF.getPassword());
+        if (ae.getSource() == loginBtn) {
+            checkLogin();
+        } else if (ae.getSource() == registerBtn) {
+            dispose();
+            new Register().setVisible(true);
+        }
+    }
 
-                String registeredEmail = Register.getRegisteredEmail(); 
-                String registeredPassword = Register.getRegisteredPassword(); 
+    /** Checks what the user typed against the accounts saved in data/users.txt. */
+    private void checkLogin() {
+        String email = emailTF.getText().trim();
+        String password = new String(passwordTF.getPassword());
 
-                if(email.isEmpty() || password.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Please Enter your email and password!", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!email.equals(registeredEmail)) {
-                    JOptionPane.showMessageDialog(this, "Incorrect Email!", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!password.equals(registeredPassword)) {
-                    JOptionPane.showMessageDialog(this, "Incorrect Password!", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Login Successful!");
-				    this.setVisible(false); 
-            	    SwingUtilities.invokeLater(() -> {
-				    FrameIntro frame = new FrameIntro(); 
-				    frame.setVisible(true);});
-                }
-            
-            
-            } else if (ae.getSource() == registerBtn) {
-                this.setVisible(false);
-                Register register = new Register();
-                register.setVisible(true);
-            }
-        
+        if (email.isEmpty() || password.isEmpty()) {
+            showError("Please Enter your email and password!");
+        } else if (!DataStore.userExists(email)) {
+            showError("No account found with this email. Please Register first!");
+        } else if (!DataStore.checkLogin(email, password)) {
+            showError("Incorrect Password!");
+            passwordTF.setText("");
+        } else {
+            DataStore.setCurrentUser(email);
+            JOptionPane.showMessageDialog(this, "Login Successful!");
+            dispose();
+            new FrameIntro().setVisible(true);
+        }
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
