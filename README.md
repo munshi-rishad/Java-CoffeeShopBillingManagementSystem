@@ -48,14 +48,34 @@ java -cp out Start
 
 ## Screenshots
 
-<table>
-  <tr>
-    <td width="50%" align="center"><img src="screenshots/updated/login_page.png" alt="Login page – log in with email and password"><br><sub>Login page – log in with email and password</sub></td>
-    <td width="50%" align="center"><img src="screenshots/updated/registration_page.png" alt="Registration page – create a new account"><br><sub>Registration page – create a new account</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" align="center"><img src="screenshots/updated/coffee_order_page.png" alt="Make My Coffee – customize the coffee and see the price"><br><sub>Make My Coffee – customize the coffee and see the price</sub></td>
-    <td width="50%" align="center"><img src="screenshots/updated/payment_page.png" alt="Payment – choose bKash, card or cash and pay"><br><sub>Payment – choose bKash, card or cash and pay</sub></td>
-  </tr>
-</table>
+### 1. Login Page
 
+Log in with your email and password.
+
+<p align="center">
+  <img src="screenshots/updated/login_page.png" alt="Login Page" width="800">
+</p>
+
+### 2. Registration Page
+
+Create a new account.
+
+<p align="center">
+  <img src="screenshots/updated/registration_page.png" alt="Registration Page" width="800">
+</p>
+
+### 3. Coffee Order Page
+
+Customize your coffee and see the total price.
+
+<p align="center">
+  <img src="screenshots/updated/coffee_order_page.png" alt="Coffee Order Page" width="800">
+</p>
+
+### 4. Payment Page
+
+Choose bKash, card or cash on delivery and confirm the order.
+
+<p align="center">
+  <img src="screenshots/updated/payment_page.png" alt="Payment Page" width="800">
+</p>
