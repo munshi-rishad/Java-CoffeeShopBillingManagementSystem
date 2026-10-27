@@ -2,7 +2,7 @@
 
 This is a Java-based Coffee Shop Billing Management System. It is developed using Java Swing for managing coffee orders, calculating prices, and handling payments.
 
-**Semester:** Summer 2023-2024 (Object Oriented Programming 1)
+**Semester:** Summer 2023-2024
 
 ## Features
 
